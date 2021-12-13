@@ -57,11 +57,6 @@ if [ $? == 0 ]; then
     /bin/sh
 fi
 
-if [ ! -d "$SERVER_DIR" ]; then
-    printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mError! Missing server directory variable! Exiting...\n"
-    exit 1
-fi
-
 # Execute Deployment System
 if [ "$SERVER_AUTODEPLOY" == "true" ] || [ -f .deploy ]; then
     printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mDeployment Initialized...\n"
@@ -76,7 +71,7 @@ if [ "$SERVER_AUTODEPLOY" == "true" ] || [ -f .deploy ]; then
         echo "Patching Files in /home/container/$SERVER_DIR..."
         cd /home/container/$SERVER_DIR
 
-        file_patch_list="$(cat file_templates.txt)"
+        file_patch_list="$(cat file_patch.txt)"
         for f in $file_patch_list; do
             envsubst < $f.tmpl | sponge $f
             echo "File Templated: $f"
@@ -86,6 +81,11 @@ if [ "$SERVER_AUTODEPLOY" == "true" ] || [ -f .deploy ]; then
     fi
 
     printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mDeployment done.\n"
+fi
+
+if [ ! -d "$SERVER_DIR" ]; then
+    printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mError! Missing server directory variable! Exiting...\n"
+    exit 1
 fi
 
 # Run through scripts
