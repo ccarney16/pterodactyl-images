@@ -1,1 +1,0 @@
-This image provides a java 11 image using the GraalVM runtime.
