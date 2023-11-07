@@ -20,6 +20,7 @@ jobs:
         - jdk11-deployable
         - jdk17-corretto
         - jdk17-deployable
+        - jdk17-graalvm-js
         - jdk17-temurin
         - jdk19-corretto
         - jdk19-temurin
