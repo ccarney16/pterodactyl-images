@@ -6,6 +6,10 @@ This repo provides a set of images for the Pterodactyl Game Panel. The following
 - Java 19
     - jdk19-corretto
     - jdk19-temurin
+- Java 20
+    - jdk20-temurin
+- Java 21
+    - jdk21-temurin
 
 Custom Images:
     - jdk11-deployable
