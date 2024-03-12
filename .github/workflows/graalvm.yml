@@ -1,4 +1,4 @@
-name: build java
+name: build graalvm
 on:
   workflow_dispatch:
   schedule:
@@ -7,24 +7,19 @@ on:
     branches:
       - master
     paths:
-      - java/**
+      - graalvm/**
 jobs:
   push:
-    name: "java_${{ matrix.tag }}"
+    name: "graalvm_${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         tag:
-        - jdk11-corretto
-        - jdk11-deployable
-        - jdk17-corretto
-        - jdk17-deployable
-        - jdk17-temurin
-        - jdk19-corretto
-        - jdk19-temurin
-        - jdk20-temurin
-        - jdk21-temurin
+        - jdk8
+        - jdk11
+        - jdk17
+        - jdk21
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
@@ -39,9 +34,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: docker/build-push-action@v2
         with:
-          context: ./java
-          file: ./java/${{ matrix.tag }}/Dockerfile
+          context: ./graalvm
+          file: ./graalvm/Dockerfile.${{ matrix.tag }}
           platforms: linux/amd64
           push: true
           tags: |
-            docker.io/ccarney16/pterodactyl-images:${{ matrix.tag }}
+            docker.io/ccarney16/pterodactyl-images:graalvm-${{ matrix.tag }}
