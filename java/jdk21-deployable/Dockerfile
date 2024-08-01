@@ -27,7 +27,7 @@ LABEL       author="Cameron Carney" maintainer="ccarney16@live.com"
 LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
 
 RUN 		apt-get update -y \
- 			&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 \
+ 			&& apt-get install -y moreutils gettext-base lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 \
  			&& useradd -d /home/container -m container \
             && curl -Lo /usr/local/bin/ytt https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.49.0/ytt-linux-amd64 \
             && curl -Lo /usr/local/bin/vendir https://github.com/vmware-tanzu/carvel-vendir/releases/download/v0.40.1/vendir-linux-amd64 \
