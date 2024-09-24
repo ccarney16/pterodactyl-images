@@ -20,6 +20,7 @@ jobs:
         - jdk11
         - jdk17
         - jdk21
+        - jdk23
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
@@ -35,7 +36,7 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: ./graalvm
-          file: ./graalvm/Dockerfile.${{ matrix.tag }}
+          file: ./graalvm/Dockerfile.ce-${{ matrix.tag }}
           platforms: linux/amd64
           push: true
           tags: |
