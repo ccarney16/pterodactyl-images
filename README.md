@@ -19,10 +19,11 @@ OpenJDK:
 
 GraalVM:
 
-- java8
-- java11
-- java17
-- java21
+- ce-jdk8
+- ce-jdk11
+- ce-jdk17
+- ce-jdk21
+- ce-jdk23
 
 *Note: These images will be based on the latest possible version of Oracle Linux*
 
