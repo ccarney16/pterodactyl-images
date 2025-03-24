@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tag2:
+        tag:
           - { version: jdk11, group: corretto }
           - { version: jdk11, group: deployable }
           - { version: jdk17, group: deployable }
