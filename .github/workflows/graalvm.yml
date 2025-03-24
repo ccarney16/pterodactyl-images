@@ -35,8 +35,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: docker/build-push-action@v6
         with:
-          context: ./graalvm
-          file: ./graalvm/Dockerfile.ce-${{ matrix.tag }}
+          context: ./java/graalvm
+          file: ./java/graalvm/Dockerfile.ce-${{ matrix.tag }}
           platforms: linux/amd64
           push: true
           tags: |
@@ -49,6 +49,7 @@ jobs:
       matrix:
         tag:
         - jdk23
+        - jdk24
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
@@ -63,8 +64,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: docker/build-push-action@v6
         with:
-          context: ./graalvm
-          file: ./graalvm/Dockerfile.${{ matrix.tag }}
+          context: ./java/graalvm
+          file: ./java/graalvm/Dockerfile.${{ matrix.tag }}
           platforms: linux/amd64
           push: true
           tags: |

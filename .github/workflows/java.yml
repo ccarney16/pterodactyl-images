@@ -10,22 +10,20 @@ on:
       - java/**
 jobs:
   push:
-    name: "java_${{ matrix.tag }}"
+    name: "java_${{ matrix.tag.group }}.${{ matrix.tag.version }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        tag:
-        - jdk11-corretto
-        - jdk11-deployable
-        - jdk17-corretto
-        - jdk17-deployable
-        - jdk17-temurin
-        - jdk19-corretto
-        - jdk19-temurin
-        - jdk20-temurin
-        - jdk21-temurin
-        - jdk21-deployable
+        tag2:
+          - { version: jdk11, group: corretto }
+          - { version: jdk11, group: deployable }
+          - { version: jdk17, group: deployable }
+          - { version: jdk21, group: deployable }
+          - { version: jdk17, group: temurin }
+          - { version: jdk21, group: temurin }
+          - { version: jdk23, group: temurin }
+          - { version: jdk24, group: temurin }
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
@@ -41,8 +39,8 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: ./java
-          file: ./java/${{ matrix.tag }}/Dockerfile
+          file: ./java/${{ matrix.tag.group }}/Dockerfile.${{ matrix.tag.version }}
           platforms: linux/amd64
           push: true
           tags: |
-            docker.io/ccarney16/pterodactyl-images:${{ matrix.tag }}
+            docker.io/ccarney16/pterodactyl-images:${{ matrix.tag.version }}-${{ matrix.tag.group }}
