@@ -20,7 +20,6 @@ jobs:
         - jdk11
         - jdk17
         - jdk21
-        - jdk23
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
@@ -48,8 +47,7 @@ jobs:
       fail-fast: false
       matrix:
         tag:
-        - jdk23
-        - jdk24
+        - jdk25
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3

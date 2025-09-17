@@ -22,8 +22,6 @@ jobs:
           - { version: jdk21, group: deployable }
           - { version: jdk17, group: temurin }
           - { version: jdk21, group: temurin }
-          - { version: jdk23, group: temurin }
-          - { version: jdk24, group: temurin }
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
