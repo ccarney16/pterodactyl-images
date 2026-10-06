@@ -20,6 +20,7 @@ jobs:
           - { version: jdk11, group: deployable }
           - { version: jdk17, group: deployable }
           - { version: jdk21, group: deployable }
+          - { version: jdk25, group: deployable }
           - { version: jdk17, group: temurin }
           - { version: jdk21, group: temurin }
     steps:
