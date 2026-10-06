@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM        --platform=$TARGETOS/$TARGETARCH docker.io/library/eclipse-temurin:21
+FROM        --platform=$TARGETOS/$TARGETARCH docker.io/library/eclipse-temurin:25
 
 LABEL       author="Cameron Carney" maintainer="ccarney16@live.com"
 
