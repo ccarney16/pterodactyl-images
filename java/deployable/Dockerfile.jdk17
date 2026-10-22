@@ -4,8 +4,8 @@ LABEL       author="Cameron Carney" maintainer="ccarney16@live.com"
 
 LABEL       org.opencontainers.image.source="https://github.com/ccarney16/pterodactyl-images"
 
-RUN amazon-linux-extras install epel -y \
-    && yum install -y gettext git git-lfs iproute lsof moreutils openssl tar \
+RUN dnf install spal-release -y \
+    && dnf install -y gettext git git-lfs iproute lsof moreutils openssl tar \
     && useradd -d /home/container -m container \
     && curl -Lo /usr/local/bin/ytt https://github.com/vmware-tanzu/carvel-ytt/releases/download/v0.55.3/ytt-linux-amd64 \
     && curl -Lo /usr/local/bin/vendir https://github.com/vmware-tanzu/carvel-vendir/releases/download/v0.46.2/vendir-linux-amd64 \
