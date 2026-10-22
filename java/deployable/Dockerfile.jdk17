@@ -1,8 +1,7 @@
-FROM        --platform=$TARGETOS/$TARGETARCH docker.io/amazoncorretto:17
+FROM --platform=$TARGETOS/$TARGETARCH docker.io/amazoncorretto:17
 
-LABEL       author="Cameron Carney" maintainer="ccarney16@live.com"
-
-LABEL       org.opencontainers.image.source="https://github.com/ccarney16/pterodactyl-images"
+LABEL author="Cameron Carney" maintainer="ccarney16@live.com"
+LABEL org.opencontainers.image.source="https://github.com/ccarney16/pterodactyl-images"
 
 RUN dnf install spal-release -y \
     && dnf install -y gettext git git-lfs iproute lsof moreutils openssl tar \
@@ -11,10 +10,9 @@ RUN dnf install spal-release -y \
     && curl -Lo /usr/local/bin/vendir https://github.com/vmware-tanzu/carvel-vendir/releases/download/v0.46.2/vendir-linux-amd64 \
     && chmod +x /usr/local/bin/ytt /usr/local/bin/vendir
 
+USER container
+ENV USER=container HOME=/home/container
+WORKDIR /home/container
 
-USER        container
-ENV         USER=container HOME=/home/container
-WORKDIR     /home/container
-
-COPY        ./../entrypoints/deploy.sh /entrypoint.sh
-CMD         [ "/bin/bash", "/entrypoint.sh" ]
+COPY ./../entrypoints/deploy.sh /entrypoint.sh
+CMD ["/bin/bash", "/entrypoint.sh"]

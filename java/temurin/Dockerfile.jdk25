@@ -1,0 +1,27 @@
+FROM --platform=$TARGETOS/$TARGETARCH docker.io/library/eclipse-temurin:25
+
+LABEL author="Cameron Carney" maintainer="ccarney16@live.com"
+LABEL org.opencontainers.image.source="https://github.com/ccarney16/pterodactyl-images"
+
+RUN apt-get update -y \
+    && apt-get install -y \
+        lsof \
+        curl \
+        ca-certificates \
+        openssl \
+        git \
+        tar \
+        sqlite3 \
+        fontconfig \
+        libfreetype6 \
+        tzdata \
+        iproute2 \
+        libstdc++6 \
+    && useradd -d /home/container -m container
+
+USER container
+ENV USER=container HOME=/home/container
+WORKDIR /home/container
+
+COPY ./../entrypoints/entrypoint.sh /entrypoint.sh
+CMD ["/bin/bash", "/entrypoint.sh"]

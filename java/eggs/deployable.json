@@ -1,0 +1,65 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2026-10-22T10:44:57-04:00",
+    "name": "Java Deployment",
+    "author": "support@zyphi.co",
+    "description": "A deployment system for pterodactyl, Syncs directories and files from git,https, and other sources using vendir and ytt.",
+    "features": null,
+    "docker_images": {
+        "docker.io\/ccarney16\/pterodactyl-images:jdk11-deployable": "docker.io\/ccarney16\/pterodactyl-images:jdk11-deployable",
+        "docker.io\/ccarney16\/pterodactyl-images:jdk17-deployable": "docker.io\/ccarney16\/pterodactyl-images:jdk17-deployable",
+        "docker.io\/ccarney16\/pterodactyl-images:jdk21-deployable": "docker.io\/ccarney16\/pterodactyl-images:jdk21-deployable",
+        "docker.io\/ccarney16\/pterodactyl-images:jdk25-deployable": "docker.io\/ccarney16\/pterodactyl-images:jdk25-deployable"
+    },
+    "file_denylist": [],
+    "startup": "java -Xms128M -Xmx{{SERVER_MEMORY}}M -jar {{SERVER_JARFILE}}",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \")! For help, type \"\r\n}",
+        "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"logs\/latest.log\"\r\n}",
+        "stop": "stop"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/ash\r\n# Vanilla MC Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\nmkdir -p \/mnt\/server\r\ncd \/mnt\/server\r\n\r\n# Signals the startup script to start deployment\r\ntouch .deploy\r\n\r\n# Create Blank config files\r\ntouch vendir.yml\r\ntouch environment.txt",
+            "container": "alpine:edge",
+            "entrypoint": "ash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Server Jar File",
+            "description": "The name of the server jarfile to run the server with.",
+            "env_variable": "SERVER_JARFILE",
+            "default_value": "server.jar",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        },
+        {
+            "name": "Server Directory",
+            "description": "Relative location to \/home\/container where the server files are located",
+            "env_variable": "SERVER_DIR",
+            "default_value": "server",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        },
+        {
+            "name": "Auto Deployment",
+            "description": "Always deploy the server on startup?",
+            "env_variable": "SERVER_AUTODEPLOY",
+            "default_value": "false",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        }
+    ]
+}
