@@ -24,5 +24,11 @@ with the tags below.
 | GraalVM Community Edition | `graalvm-ce-jdk8`, `graalvm-ce-jdk11`, `graalvm-ce-jdk17`, `graalvm-ce-jdk21` |
 | GraalVM | `graalvm-jdk25` |
 
+### Other
+
+| Image | Tags |
+| --- | --- |
+| Traefik | `traefik` |
+
 The Java images use their upstream base images. Deployable images include
 `ytt` and `vendir` for deployment workflows.
