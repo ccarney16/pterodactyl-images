@@ -1,0 +1,31 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2026-10-26T12:53:59-04:00",
+    "name": "Bedrock Signaling Proxy",
+    "author": "ccarney@zyphi.co",
+    "description": "A proxy service for a Nethernet enabled bedrock server utilizing traefik. This is to be used for generating and renewing SSL certificates.",
+    "features": [],
+    "docker_images": {
+        "docker.io\/ccarney16\/pterodactyl-images:traefik": "docker.io\/ccarney16\/pterodactyl-images:traefik"
+    },
+    "file_denylist": [],
+    "startup": "traefik",
+    "config": {
+        "files": "{}",
+        "startup": "{}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/usr\/bin\/env bash\r\n\r\ncd \/mnt\/server\r\n\r\nif ! [ -f traefik.env ]; then\r\n  echo \"TRAEFIK_LOG_LEVEL=INFO\" >> traefik.env\r\n  echo \"TRAEFIK_ENTRYPOINTS_WEBSECURE_ADDRESS=:19132\" >> traefik.env\r\n  echo \"TRAEFIK_ENTRYPOINTS_WEBSECURE_HTTP_ALIASHEADERSSTRATEGY=delete\" >> traefik.env\r\n  echo \"TRAEFIK_ENTRYPOINTS_WEBSECURE_HTTP_TLS=true\" >> traefik.env\r\n  echo \"TRAEFIK_ENTRYPOINTS_WEBSECURE_HTTP_TLS_CERTRESOLVER=cloudflare\" >> traefik.env\r\n  echo \"TRAEFIK_CERTIFICATESRESOLVERS_CLOUDFLARE_ACME_EMAIL=admin@example.com\" >> traefik.env\r\n  echo \"TRAEFIK_CERTIFICATESRESOLVERS_CLOUDFLARE_ACME_STORAGE=acme.json\" >> traefik.env\r\n  echo \"TRAEFIK_CERTIFICATESRESOLVERS_CLOUDFLARE_ACME_DNSCHALLENGE_PROVIDER=cloudflare\" >> traefik.env\r\n  echo \"TRAEFIK_ACCESSLOG=true\" >> traefik.env\r\n  echo \"TRAEFIK_PROVIDERS_FILE_DIRECTORY=file.d\" >> traefik.env\r\n  echo \"\" >> traefik.env\r\n  echo \"CF_DNS_API_TOKEN=abcxyz-replaceme\" >> traefik.env\r\nfi\r\n\r\nif ! [ -d file.d ]; then\r\n  mkdir file.d\/\r\n  echo \"[http.routers.bedrock]\" >> file.d\/bedrock.toml\r\n  echo \"  rule = \\\"Host(\\`*.example.com\\`)\\\"\" >> file.d\/bedrock.toml\r\n  echo \"  service = \\\"bedrock\\\"\" >> file.d\/bedrock.toml\r\n  echo \"\" >> file.d\/bedrock.toml\r\n  echo \"[[http.services.bedrock.loadBalancer.servers]]\" >> file.d\/bedrock.toml\r\n  echo \"  url = \\\"http:\/\/localhost:19133\\\"\" >> file.d\/bedrock.toml\r\nfi",
+            "container": "alpine:3.23",
+            "entrypoint": "ash"
+        }
+    },
+    "variables": []
+}
