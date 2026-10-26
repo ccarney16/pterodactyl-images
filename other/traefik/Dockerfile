@@ -1,4 +1,4 @@
-FROM --platform=$TARGETOS/$TARGETARCH traefik:alpine
+FROM --platform=$TARGETOS/$TARGETARCH traefik:v3
 
 LABEL author="Cameron Carney" maintainer="ccarney16@live.com"
 LABEL org.opencontainers.image.source="https://github.com/ccarney16/pterodactyl-images"
